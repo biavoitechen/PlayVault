@@ -1,0 +1,18 @@
+﻿# Android / Gradle
+.gradle/
+**/build/
+local.properties
+*.iml
+/.idea/
+.idea/
+captures/
+*.apk
+*.aab
+
+# Dumps / temporários / gigantes
+*.hprof
+*.zip
+*.tar
+*.7z
+.DS_Store
+Thumbs.db
