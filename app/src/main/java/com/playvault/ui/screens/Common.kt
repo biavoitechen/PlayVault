@@ -1,7 +1,13 @@
 package com.playvault.ui.screens
 
 import androidx.compose.foundation.layout.*
+<<<<<<< HEAD
 import androidx.compose.material3.*
+=======
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RowScope
+import androidx.compose.material3.Text
+>>>>>>> 60b768c8855b23a486de5187baddd325ccf00000
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier

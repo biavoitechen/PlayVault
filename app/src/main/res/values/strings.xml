@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
+=======
+>>>>>>> 60b768c8855b23a486de5187baddd325ccf00000
 <resources>
     <string name="app_name">PlayVault</string>
 </resources>

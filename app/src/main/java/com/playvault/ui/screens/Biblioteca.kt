@@ -1,5 +1,6 @@
 package com.playvault.ui.screens
 
+<<<<<<< HEAD
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -41,5 +42,15 @@ fun BibliotecaScreen() {
                 }
             }
         }
+=======
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+
+@Composable
+fun BibliotecaScreen() {
+    ScreenScaffold(title = "Biblioteca") {
+        Button(onClick = { /* TODO: abrir item */ }) { Text("Item mais recente") }
+>>>>>>> 60b768c8855b23a486de5187baddd325ccf00000
     }
 }

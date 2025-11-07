@@ -1,5 +1,6 @@
 package com.playvault.ui.screens
 
+<<<<<<< HEAD
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -49,6 +50,24 @@ fun LojaScreen(onClickDetalhe: (String) -> Unit) {
                     }
                 }
             }
+=======
+import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
+
+@Composable
+fun LojaScreen(onClickDetalhe: (String) -> Unit) {
+    var q by remember { mutableStateOf("") }
+    ScreenScaffold(title = "Loja") {
+        OutlinedTextField(
+            value = q,
+            onValueChange = { q = it },
+            label = { Text("Pesquisar") }
+        )
+        Button(onClick = { onClickDetalhe("sku-123") }) {
+            Text("Abrir Detalhe (sku-123)")
+>>>>>>> 60b768c8855b23a486de5187baddd325ccf00000
         }
     }
 }

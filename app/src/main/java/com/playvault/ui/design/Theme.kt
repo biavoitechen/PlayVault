@@ -1,5 +1,6 @@
 package com.playvault.ui.design
 
+<<<<<<< HEAD
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -27,6 +28,17 @@ fun PlayVaultTheme(
         colorScheme = colors,
         typography = AppTypography,
         shapes = AppShapes,
+=======
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+
+@Composable
+fun PlayVaultTheme(content: @Composable () -> Unit) {
+    MaterialTheme(
+        colorScheme = pvColorScheme(),
+        typography = pvTypography(),
+        shapes = pvShapes(),
+>>>>>>> 60b768c8855b23a486de5187baddd325ccf00000
         content = content
     )
 }

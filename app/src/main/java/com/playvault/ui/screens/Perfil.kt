@@ -1,5 +1,6 @@
 package com.playvault.ui.screens
 
+<<<<<<< HEAD
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -26,5 +27,16 @@ fun PerfilScreen(vm: AuthViewModel, onGotoLogin: () -> Unit, onGotoAdmin: () -> 
             state.lastMessage?.let { Text(it) }; Spacer(Modifier.height(16.dp))
             Button(onClick = onGotoLogin) { Text("Fazer login / cadastro") }
         }
+=======
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+
+@Composable
+fun PerfilScreen(onClickLogin: () -> Unit, onClickAdmin: () -> Unit) {
+    ScreenScaffold(title = "Perfil") {
+        Button(onClick = onClickLogin) { Text("Login") }
+        Button(onClick = onClickAdmin) { Text("Admin") }
+>>>>>>> 60b768c8855b23a486de5187baddd325ccf00000
     }
 }
