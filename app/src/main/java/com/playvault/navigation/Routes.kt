@@ -1,13 +1,11 @@
 package com.playvault.navigation
 
 sealed class Route(val path: String) {
-    // Tabs
     data object Loja : Route("loja")
     data object Biblioteca : Route("biblioteca")
     data object Amigos : Route("amigos")
     data object Perfil : Route("perfil")
 
-    // Secundárias
     data object Login : Route("login")
     data object Cadastro : Route("cadastro")
     data object Admin : Route("admin")

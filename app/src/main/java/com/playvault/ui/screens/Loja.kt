@@ -1,6 +1,5 @@
 package com.playvault.ui.screens
 
-<<<<<<< HEAD
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,7 +25,12 @@ fun LojaScreen(onClickDetalhe: (String) -> Unit) {
         )
     }
     val filtrado = remember(query, base) {
-        if (query.isBlank()) base else base.filter { it.titulo.contains(query, true) || it.id.contains(query, true) }
+        if (query.isBlank()) base else base.filter {
+            it.titulo.contains(
+                query,
+                true
+            ) || it.id.contains(query, true)
+        }
     }
     ScreenScaffold(title = "Loja") {
         OutlinedTextField(
@@ -42,7 +46,11 @@ fun LojaScreen(onClickDetalhe: (String) -> Unit) {
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
                 ) {
                     Column(Modifier.padding(14.dp)) {
-                        Text(game.titulo, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                        Text(
+                            game.titulo,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.SemiBold
+                        )
                         Spacer(Modifier.height(6.dp))
                         Text(game.preco, style = MaterialTheme.typography.bodyMedium)
                         Spacer(Modifier.height(4.dp))
@@ -50,24 +58,6 @@ fun LojaScreen(onClickDetalhe: (String) -> Unit) {
                     }
                 }
             }
-=======
-import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-
-@Composable
-fun LojaScreen(onClickDetalhe: (String) -> Unit) {
-    var q by remember { mutableStateOf("") }
-    ScreenScaffold(title = "Loja") {
-        OutlinedTextField(
-            value = q,
-            onValueChange = { q = it },
-            label = { Text("Pesquisar") }
-        )
-        Button(onClick = { onClickDetalhe("sku-123") }) {
-            Text("Abrir Detalhe (sku-123)")
->>>>>>> 60b768c8855b23a486de5187baddd325ccf00000
         }
     }
 }

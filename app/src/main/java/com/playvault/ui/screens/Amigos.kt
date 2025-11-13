@@ -1,6 +1,5 @@
 package com.playvault.ui.screens
 
-<<<<<<< HEAD
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,11 +9,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 
 private data class Amigo(val id: String, val nome: String)
 
 @Composable
-fun AmigosScreen() {
+fun AmigosScreen(navController: NavHostController) {
     val snackbar = remember { SnackbarHostState() }
     var query by remember { mutableStateOf("") }
     val base = remember {
@@ -25,14 +25,22 @@ fun AmigosScreen() {
         )
     }
     val filtrado = remember(query, base) {
-        if (query.isBlank()) base else base.filter { it.nome.contains(query, true) || it.id.contains(query, true) }
+        if (query.isBlank()) base else base.filter {
+            it.nome.contains(
+                query,
+                true
+            ) || it.id.contains(query, true)
+        }
     }
     Scaffold(snackbarHost = { SnackbarHost(hostState = snackbar) }) { inner ->
         Column(Modifier.padding(inner)) {
             ScreenScaffold(title = "Amigos") {
                 OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(), value = query, onValueChange = { query = it },
-                    label = { Text("Buscar amigo") }, singleLine = true
+                    modifier = Modifier.fillMaxWidth(),
+                    value = query,
+                    onValueChange = { query = it },
+                    label = { Text("Buscar amigo") },
+                    singleLine = true
                 )
                 Spacer(Modifier.height(12.dp))
                 LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -44,7 +52,11 @@ fun AmigosScreen() {
                             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
                         ) {
                             Column(Modifier.padding(14.dp)) {
-                                Text(amigo.nome, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                                Text(
+                                    amigo.nome,
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = FontWeight.SemiBold
+                                )
                                 Spacer(Modifier.height(4.dp))
                                 Text("ID: ${amigo.id}", style = MaterialTheme.typography.labelSmall)
                             }
@@ -53,15 +65,5 @@ fun AmigosScreen() {
                 }
             }
         }
-=======
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-
-@Composable
-fun AmigosScreen() {
-    ScreenScaffold(title = "Amigos") {
-        Button(onClick = { /* TODO */ }) { Text("Procurar amigos") }
->>>>>>> 60b768c8855b23a486de5187baddd325ccf00000
     }
 }

@@ -8,5 +8,5 @@ data class User(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String,
     val email: String,
-    val password: String // demo: plano; para produção, usar hash
+    val password: String
 )
