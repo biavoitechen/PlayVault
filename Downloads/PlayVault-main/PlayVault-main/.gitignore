@@ -1,0 +1,24 @@
+<<<<<<< HEAD
+=======
+﻿# Android / Gradle
+>>>>>>> 60b768c8855b23a486de5187baddd325ccf00000
+.gradle/
+**/build/
+local.properties
+*.iml
+/.idea/
+.idea/
+captures/
+*.apk
+*.aab
+<<<<<<< HEAD
+=======
+
+# Dumps / temporários / gigantes
+>>>>>>> 60b768c8855b23a486de5187baddd325ccf00000
+*.hprof
+*.zip
+*.tar
+*.7z
+.DS_Store
+Thumbs.db
