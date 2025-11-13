@@ -16,7 +16,7 @@ import com.playvault.ui.screens.LojaScreen
 import com.playvault.ui.screens.LoginCadastroScreen
 import com.playvault.ui.screens.PerfilScreen
 import com.playvault.ui.viewmodel.AuthVMFactory
-import com.playvault.ui.viewmodel.AuthViewModel
+import com.playvault.viewmodel.auth.AuthViewModel
 
 @Composable
 fun AppNavGraph(

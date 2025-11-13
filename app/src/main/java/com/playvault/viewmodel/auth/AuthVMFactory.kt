@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.playvault.data.repo.AuthRepository
+import com.playvault.viewmodel.auth.AuthViewModel
 
 class AuthViewModelFactory(private val repo: AuthRepository): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -1,4 +1,4 @@
-package com.playvault.ui.viewmodel
+package com.playvault.viewmodel.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
