@@ -3,6 +3,7 @@ package com.playvault.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.playvault.data.repo.AuthRepository
+import com.playvault.viewmodel.auth.AuthViewModel
 
 class AuthVMFactory(
     private val authRepository: AuthRepository?

@@ -1,52 +1,38 @@
 package com.playvault.ui.screens
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.playvault.ui.components.ScreenScaffold
+import androidx.navigation.NavHostController
+import com.playvault.contracts.AuthEvent
 import com.playvault.ui.viewmodel.AuthViewModel
 
 @Composable
 fun PerfilScreen(
     vm: AuthViewModel,
-    onLogout: () -> Unit
+    onGotoLogin: () -> Unit,
+    onGotoAdmin: () -> Unit,
+    navController: NavHostController
 ) {
-    val state = vm.state.collectAsState().value
-
-    ScreenScaffold(
-        title = "Perfil"
-    ) { innerPadding: PaddingValues ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .padding(16.dp)
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Text(
-                text = "Meu perfil",
-                style = MaterialTheme.typography.headlineSmall
-            )
-
-            Text(
-                text = "Estado atual: ${state}",
-                style = MaterialTheme.typography.bodySmall
-            )
-
-            Button(onClick = onLogout) {
-                Text("Sair da conta")
+    val state by vm.state.collectAsState()
+    ScreenScaffold(title = "Perfil") {
+        if (state.isLoading) {
+            CircularProgressIndicator(); return@ScreenScaffold
+        }
+        if (state.isLogged) {
+            Text("Sessão ativa"); Spacer(Modifier.height(8.dp))
+            state.lastMessage?.let { Text(it) }; Spacer(Modifier.height(16.dp))
+            Column {
+                Button(onClick = { vm.reduce(AuthEvent.Logout) }) { Text("Sair") }
+                Spacer(Modifier.height(8.dp))
+                Button(onClick = onGotoAdmin) { Text("Área Administrativa") }
             }
+        } else {
+            Text("Você não está logado."); Spacer(Modifier.height(8.dp))
+            state.lastMessage?.let { Text(it) }; Spacer(Modifier.height(16.dp))
+            Button(onClick = onGotoLogin) { Text("Fazer login / cadastro") }
         }
     }
 }
