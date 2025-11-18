@@ -4,77 +4,100 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-
-import com.playvault.contracts.AuthEvent
-import com.playvault.common.UiText
+import com.playvault.ui.components.ScreenScaffold
 import com.playvault.ui.viewmodel.AuthViewModel
-import com.playvault.ui.design.ScreenScaffold
 
 @Composable
-fun LoginCadastroScreen(vm: AuthViewModel, onAuthOk: () -> Unit) {
-    val st by vm.state.collectAsState()
+fun LoginCadastroScreen(
+    vm: AuthViewModel,
+    onGotoAdmin: () -> Unit,
+    onAuthOk: () -> Unit
+) {
     val context = LocalContext.current
-    var isLoginMode by remember { mutableStateOf(true) }
+    val state by vm.state.collectAsState()
 
-    LaunchedEffect(key1 = st.isLogged) {
-        if (st.isLogged) onAuthOk()
+    LaunchedEffect(state.isLogged) {
+        if (state.isLogged) {
+            onAuthOk()
+        }
     }
 
-    LaunchedEffect(key1 = st.lastMessage) {
-        st.lastMessage?.let { msg ->
-            try {
-                val text = msg.asString(context)
-                Toast.makeText(context, text, Toast.LENGTH_LONG).show()
-            } catch (t: Throwable) {
-                Toast.makeText(context, msg.toString(), Toast.LENGTH_LONG).show()
-            }
+    LaunchedEffect(state.lastMessage) {
+        val msg = state.lastMessage
+        if (!msg.isNullOrBlank()) {
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
             vm.clearMessage()
         }
     }
 
-    ScreenScaffold(title = if (isLoginMode) "Login" else "Criar Conta") {
-        if (st.isLoading) {
-            Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
-                CircularProgressIndicator(modifier = Modifier.align(alignment = androidx.compose.ui.Alignment.CenterHorizontally))
+    ScreenScaffold(title = if (state.isLoginMode) "Login" else "Cadastro") { innerPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                if (!state.isLoginMode) {
+                    OutlinedTextField(
+                        value = state.name,
+                        onValueChange = vm::onNameChange,
+                        label = { Text("Nome") },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+
+                OutlinedTextField(
+                    value = state.email,
+                    onValueChange = vm::onEmailChange,
+                    label = { Text("E-mail") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                OutlinedTextField(
+                    value = state.password,
+                    onValueChange = vm::onPasswordChange,
+                    label = { Text("Senha") },
+                    singleLine = true,
+                    visualTransformation = PasswordVisualTransformation(),
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Button(
+                    onClick = { vm.submit() },
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = !state.isLoading
+                ) {
+                    Text(if (state.isLoginMode) "Entrar" else "Cadastrar")
+                }
+
+                TextButton(onClick = { vm.toggleMode() }) {
+                    Text(
+                        if (state.isLoginMode)
+                            "Não tem conta? Cadastre-se"
+                        else
+                            "Já tem conta? Fazer login"
+                    )
+                }
+
+                TextButton(onClick = onGotoAdmin) {
+                    Text("Área do administrador")
+                }
             }
-            return@ScreenScaffold
-        }
-
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = st.email,
-            onValueChange = { vm.reduce(AuthEvent.EmailChanged(it)) },
-            label = { Text("Email") },
-            singleLine = true
-        )
-
-        Spacer(Modifier.height(8.dp))
-
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = st.password,
-            onValueChange = { vm.reduce(AuthEvent.PasswordChanged(it)) },
-            label = { Text("Senha (mín. 6)") },
-            singleLine = true,
-            visualTransformation = PasswordVisualTransformation()
-        )
-
-        Spacer(Modifier.height(16.dp))
-
-        Button(modifier = Modifier.fillMaxWidth(), onClick = {
-            if (isLoginMode) vm.reduce(AuthEvent.SubmitLogin) else vm.reduce(AuthEvent.SubmitRegister)
-        }) {
-            Text(if (isLoginMode) "Entrar" else "Cadastrar")
-        }
-
-        Spacer(Modifier.height(8.dp))
-
-        TextButton(modifier = Modifier.fillMaxWidth(), onClick = { isLoginMode = !isLoginMode }) {
-            Text(if (isLoginMode) "Ainda não tem conta? Cadastre-se" else "Já tem conta? Fazer login")
         }
     }
 }

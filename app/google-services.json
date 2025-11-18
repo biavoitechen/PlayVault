@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "397993774042",
+    "project_id": "playvault-6f03a",
+    "storage_bucket": "playvault-6f03a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397993774042:android:68f49e05f6d9edd834cee3",
+        "android_client_info": {
+          "package_name": "com.playvault"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATkRb5PvgVZjv3trBwDOgYHWcgk6hgVxc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

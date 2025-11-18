@@ -1,22 +1,30 @@
 package com.playvault.ui.screens
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.wear.compose.material3.ScreenScaffold
+import com.playvault.ui.components.ScreenScaffold
 
 @Composable
-fun AdminScreen(onBack: () -> Unit, navController: NavHostController) {
-    ScreenScaffold(title = "Admin") {
-        Text("Área Administrativa (mock)")
-        Spacer(Modifier.height(8.dp))
-        Text("- Futuro: gestão de usuários, métricas, etc.")
-        Spacer(Modifier.height(16.dp))
-        Button(onClick = onBack) { Text("Voltar") }
+fun AdminScreen(
+    onBack: () -> Unit
+) {
+    ScreenScaffold(
+        title = "Administração",
+        onBack = onBack
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Text("Painel do Administrador", style = MaterialTheme.typography.headlineSmall)
+            Text("Aqui você pode gerenciar jogos, usuários e outras configurações.")
+            // TODO: ligar com o restante do CRUD/Room conforme o trabalho.
+        }
     }
 }
