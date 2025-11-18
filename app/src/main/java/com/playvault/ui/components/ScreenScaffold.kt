@@ -11,20 +11,29 @@ import androidx.compose.runtime.Composable
 @Composable
 fun ScreenScaffold(
     title: String,
+    showBack: Boolean = false,
     onBack: (() -> Unit)? = null,
+    actions: @Composable () -> Unit = {},
+    content: @Composable () -> Unit
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(title) },
                 navigationIcon = {
+                    if (showBack && onBack != null) {
                         IconButton(onClick = onBack) {
                             Icon(
+                                imageVector = Icons.Default.ArrowBack,
                                 contentDescription = "Voltar"
                             )
                         }
                     }
+                },
+                actions = { actions() }
             )
-                }
+        }
+    ) { innerPadding ->
+        content()
     }
 }

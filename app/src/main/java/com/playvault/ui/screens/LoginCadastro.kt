@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 
 import com.playvault.contracts.AuthEvent
 import com.playvault.common.UiText
-import com.playvault.ui.viewmodel.AuthViewModel
+import com.playvault.viewmodel.auth.AuthViewModel
 import com.playvault.ui.design.ScreenScaffold
 
 @Composable

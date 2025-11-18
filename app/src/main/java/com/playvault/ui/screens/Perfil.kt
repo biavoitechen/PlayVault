@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.playvault.contracts.AuthEvent
-import com.playvault.ui.viewmodel.AuthViewModel
+import com.playvault.viewmodel.auth.AuthViewModel
 
 @Composable
 fun PerfilScreen(
