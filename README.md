@@ -187,7 +187,7 @@ Disponibilizar dados para ViewModels
 
 1. Clone o repositório
 
-git clone https://github.com/SEU-USUARIO/PlayVault.git
+git clone https://github.com/biavoitechen/PlayVault
 
 2. Abra no Android Studio (Koala / Hedgehog / Iguana)
 
