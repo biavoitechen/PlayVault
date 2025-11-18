@@ -1,20 +1,30 @@
 package com.playvault.ui.screens
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.playvault.ui.components.ScreenScaffold
 
 @Composable
-fun DetalheScreen(itemId: String, onBack: () -> Unit) {
-    ScreenScaffold(title = "Detalhe") {
-        Text("Detalhe do item: $itemId")
-        Spacer(Modifier.height(12.dp))
-        Text("Descrição mock do item $itemId.")
-        Spacer(Modifier.height(16.dp))
-        Button(onClick = onBack) { Text("Voltar") }
+fun DetalheScreen(
+    itemId: String,
+    onBack: () -> Unit
+) {
+    ScreenScaffold(
+        title = "Detalhes do jogo",
+        onBack = onBack
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text("Detalhes do item $itemId", style = MaterialTheme.typography.headlineSmall)
+            Text("Aqui vão as informações completas do jogo selecionado.")
+        }
     }
 }

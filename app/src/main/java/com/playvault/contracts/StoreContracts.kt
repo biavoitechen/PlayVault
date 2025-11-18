@@ -1,9 +1,6 @@
-// app/src/main/java/com/playvault/contracts/StoreContracts.kt
 package com.playvault.contracts
 
-/**
- * Opções de ordenação do catálogo da Loja.
- */
+
 enum class SortOption {
     BY_POPULARITY,
     BY_TITLE

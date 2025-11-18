@@ -1,35 +1,82 @@
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.playvault.contracts.AuthEvent
-import com.playvault.contracts.AuthState
 import com.playvault.data.repo.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.update
 
-class AuthViewModel(private val repo: AuthRepository): ViewModel() {
-    private val _state = MutableStateFlow(AuthState())
-    val state: StateFlow<AuthState> = _state
+data class AuthUiState(
+    val name: String = "",
+    val email: String = "",
+    val password: String = "",
+    val isLoginMode: Boolean = true,
+    val isLogged: Boolean = false,
+    val isLoading: Boolean = false,
+    val lastMessage: String? = null,
+)
 
-    fun reduce(event: AuthEvent) {
-        when (event) {
-            is AuthEvent.EmailChanged -> _state.value = _state.value.copy(email = event.value, lastMessage = null)
-            is AuthEvent.PasswordChanged -> _state.value = _state.value.copy(password = event.value, lastMessage = null)
-            AuthEvent.SubmitLogin -> login()
-            AuthEvent.SubmitRegister -> register()
-            AuthEvent.Logout -> _state.value = _state.value.copy(isLogged = false, lastMessage = "Sessão encerrada")
+class AuthViewModel(
+    private val authRepository: AuthRepository? = null
+) : ViewModel() {
+
+    private val _state = MutableStateFlow(AuthUiState())
+    val state: StateFlow<AuthUiState> = _state
+
+    fun onNameChange(value: String) {
+        _state.update { it.copy(name = value) }
+    }
+
+    fun onEmailChange(value: String) {
+        _state.update { it.copy(email = value) }
+    }
+
+    fun onPasswordChange(value: String) {
+        _state.update { it.copy(password = value) }
+    }
+
+    fun toggleMode() {
+        _state.update { it.copy(isLoginMode = !it.isLoginMode, lastMessage = null) }
+    }
+
+    fun submit() {
+        val current = _state.value
+
+        if (current.email.isBlank() || current.password.isBlank()) {
+            _state.update { it.copy(lastMessage = "Preencha e-mail e senha.") }
+            return
+        }
+
+        if (current.isLoginMode) {
+            // Login fake
+            _state.update {
+                it.copy(
+                    isLogged = true,
+                    lastMessage = "Login realizado com sucesso."
+                )
+            }
+        } else {
+            if (current.name.isBlank()) {
+                _state.update { it.copy(lastMessage = "Preencha o nome para cadastro.") }
+                return
+            }
+            _state.update {
+                it.copy(
+                    isLogged = true,
+                    lastMessage = "Cadastro realizado com sucesso."
+                )
+            }
         }
     }
-    private fun login() = viewModelScope.launch {
-        _state.value = _state.value.copy(isLoading = true, lastMessage = null)
-        val ok = repo.login(_state.value.email.trim(), _state.value.password)
-        _state.value = if (ok) _state.value.copy(isLoading=false,isLogged=true,lastMessage="Login ok")
-                       else _state.value.copy(isLoading=false,isLogged=false,lastMessage="Credenciais inválidas")
+
+    fun clearMessage() {
+        _state.update { it.copy(lastMessage = null) }
     }
-    private fun register() = viewModelScope.launch {
-        _state.value = _state.value.copy(isLoading = true, lastMessage = null)
-        val ok = repo.register(_state.value.email.trim(), _state.value.password)
-        _state.value = if (ok) _state.value.copy(isLoading=false,isLogged=true,lastMessage="Cadastro efetuado")
-                       else _state.value.copy(isLoading=false,isLogged=false,lastMessage="Email já existe ou dados inválidos")
+
+    fun logout() {
+        _state.update {
+            AuthUiState(
+                isLoginMode = true,
+                isLogged = false
+            )
+        }
     }
 }
